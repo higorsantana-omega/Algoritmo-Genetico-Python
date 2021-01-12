@@ -1,8 +1,25 @@
+from random import random
+
 class Produto():
     def __init__(self, nome, espaco, valor):
         self.nome = nome
         self.espaco = espaco
         self.valor  = valor
+
+class Individuo():
+    def __init__(self, espacos, valores, limite_espacos, geracao=0):
+        self.espacos = espacos
+        self.valores = valores
+        self.limites_espacos = limite_espacos
+        self.nota_avaliacao = 0
+        self.geracao = geracao
+        self.cromossomo = []
+
+        for i in range(len(espacos)):
+            if random() < 0.5:
+                self.cromossomo.append("0")
+            else:
+                self.cromossomo.append("1")
 
 if __name__ == "__main__":
     # p1 = Produto("Iphone", 0.0000899, 2199.12)
@@ -21,5 +38,27 @@ if __name__ == "__main__":
     lista_produtos.append(Produto("Geladeira Consul", 0.870, 1199.89))
     lista_produtos.append(Produto("Notebook Lenovo", 0.498, 1999.90))
     lista_produtos.append(Produto("Notebook Asus", 0.527, 3999.00))
+    # for produto in lista_produtos:
+    #     print(produto.nome)
+
+    espacos = []
+    valores = []
+    nomes = []
     for produto in lista_produtos:
-        print(produto.nome)
+        espacos.append(produto.espaco)
+        valores.append(produto.valor)
+        nomes.append(produto.nome)
+
+    limite = 3
+    individuo1 = Individuo(espacos, valores, limite)
+
+    print("Espaços = %s" % str(individuo1.espacos))
+    print("Valores = %s" % str(individuo1.valores))
+    print("Cromossomo = %s" % str(individuo1.cromossomo))
+
+    print("\nComponentes de Carga")
+    for i in range(len(lista_produtos)):
+        if individuo1.cromossomo[i] == '1':
+            print(f"Nome: {lista_produtos[i].nome} R$ {lista_produtos[i].valor}")
+
+
